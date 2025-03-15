@@ -22,7 +22,7 @@ robot_mouth.say("Hi Sir, how can I assist you today? ")
 print("Hi Sir, how can I assist you today? ")
 robot_mouth.runAndWait()
 
-
+## Run the program forever
 while True:
     # Listening
     # Use with in order to turn off the microphone after successfully hearing from microphone
@@ -33,7 +33,7 @@ while True:
 
     print("Robot: ...")
 
-    # Function recognize_google built by google to recognize voice and convert to text
+    # Function recognize_google built by google to recognize voice line and convert to text
     try:
         you = robot_ear.recognize_google(audio)
     except:
@@ -43,19 +43,21 @@ while True:
 
     # Understanding
     if you == "":
-        robot_brain = "I cannot hear you, please try again!"
+        robot_brain = "Sir, I cannot hear you, please try again!"
+    elif "how are" in you:
+        robot_brain = "I am very good sir!"
     elif "hello" in you:
-        robot_brain = "Hello Khai"
+        robot_brain = "Hello Sir"
     elif "today" in you:
-        today = date.today()
-        robot_brain = today.strftime("%B %d, %Y")
+        today = date.today().strftime("%B %d, %Y")
+        robot_brain = "It is " + today + " Sir"
     elif "time" in you:
         # Get the current date and time
         now = datetime.now()
         # Extract time from datetime object
-        current_time = now.time()
+        current_time = now.time().strftime("%H:%M:%S")
         # Format time as string
-        robot_brain = current_time.strftime("%H:%M:%S")
+        robot_brain = "It is " + current_time + " right now Sir"
     elif "wikipedia" in you or "search" in you:
         temp = re.sub("wikipedia", "", you, flags= re.IGNORECASE)
         query = re.sub("search", "", you, flags = re.IGNORECASE)
